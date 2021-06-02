@@ -109,12 +109,13 @@ class Chat:
 		s_fr = self.get_user(username)
 		incoming = s_fr['incoming']
 		msgs={}
+		bismillah={'halo':[]}
 		for users in incoming:
 			msgs[users]=[]
 			while not incoming[users].empty():
 				msgs[users].append(s_fr['incoming'][users].get_nowait())
-			
-		return {'status': 'OK', 'messages': msgs}
+
+		return {'status': 'OK', 'messages': msgs[users][0]['msg']}
 
 if __name__=="__main__":
 	j = Chat()
@@ -144,10 +145,10 @@ if __name__=="__main__":
 
 	print("isi mailbox dari zahra")
 	print(j.get_inbox('zahra'))
-	print("isi mailbox dari rofita")
-	print(j.get_inbox('rofita'))
-	print("isi mailbox dari patrick")
-	print(j.get_inbox('patrick'))
+	# print("isi mailbox dari rofita")
+	# print(j.get_inbox('rofita'))
+	# print("isi mailbox dari patrick")
+	# print(j.get_inbox('patrick'))
 
 
 
