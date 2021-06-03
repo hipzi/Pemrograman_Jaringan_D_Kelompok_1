@@ -109,13 +109,17 @@ class Chat:
 		s_fr = self.get_user(username)
 		incoming = s_fr['incoming']
 		msgs={}
+		pengirim = "" 
 		bismillah={'halo':[]}
 		for users in incoming:
 			msgs[users]=[]
 			while not incoming[users].empty():
 				msgs[users].append(s_fr['incoming'][users].get_nowait())
 
-		return {'status': 'OK', 'messages': msgs[users][0]['msg']}
+		for name in msgs.keys():
+			pengirim = name
+
+		return {'status': 'OK', 'messages': msgs[users][0]['msg'], 'pengirim': pengirim}
 
 if __name__=="__main__":
 	j = Chat()
