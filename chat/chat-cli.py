@@ -4,7 +4,7 @@ import json
 import logging
 
 TARGET_IP = "127.0.0.1"
-TARGET_PORT = 8889
+TARGET_PORT = 8887
 
 
 class ChatClient:
@@ -69,6 +69,7 @@ class ChatClient:
     def inbox(self):
         hasil={}
         pesan={}
+        countpesan=0
         if (self.tokenid==""):
             return "Error, not authorized"
         string="inbox {} \r\n" . format(self.tokenid)
@@ -79,12 +80,16 @@ class ChatClient:
                 user = name
 
             countpesan = len([jmlpesan for jmlpesan in result['messages'][user] if isinstance(jmlpesan, dict)])
+            # logging.warning("BISMILLAH: {}" . format(countpesan) )
 
             pesan[user]=[]
             for i in range(countpesan):
                 hasil = result['messages'][user][i]['msg']
                 pesan[user].append(hasil)
 
+            # logging.warning("BISMILLAH: {}" . format(pesan) )
+            # logging.warning("BISMILLAH 2: {}" . format(pesan[user]) )
+            # logging.warning("BISMILLAH 2: {}" . format(result['messages']) )
             return "{}" . format(json.dumps(pesan[user]))
         else:            
             return "Error, {}" . format(result['message'])

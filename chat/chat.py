@@ -15,6 +15,7 @@ class Chat:
 		self.users['rofita']={ 'nama': 'Rofita Siti', 'negara': 'Indonesia', 'password': 'madiun', 'incoming' : {}, 'outgoing': {}}
 		self.users['patrick']={ 'nama': 'Patrick', 'negara': 'Indonesia', 'password': 'jombang', 'incoming' : {}, 'outgoing': {}}
 	def proses(self,data):
+		logging.warning("DATA:BISMILLAH: {}" . format(data))
 		j=data.split(" ")
 		try:
 			command=j[0].strip()
@@ -33,6 +34,7 @@ class Chat:
 				logging.warning("SEND: session {} send message from {} to {}" . format(sessionid, usernamefrom,usernameto))
 				return self.send_message(sessionid,usernamefrom,usernameto,message)
 			elif (command=='inbox'):
+				logging.warning("INBOX: BISMILLAH")
 				sessionid = j[1].strip()
 				username = self.sessions[sessionid]['username']
 				logging.warning("INBOX: {}" . format(sessionid))
@@ -176,10 +178,7 @@ class Chat:
 					file.write(data)
 				print("File Received")
 
-		for name in msgs.keys():
-			pengirim = name
-
-		return {'status': 'OK', 'messages': msgs[users][0]['msg'], 'pengirim': pengirim}
+		return {'status': 'OK', 'messages': msgs}
 
 if __name__=="__main__":
 	j = Chat()
@@ -199,10 +198,11 @@ if __name__=="__main__":
 	#print(j.proses("send {} zahra hello gimana kabarnya mes " . format(tokenid)))
 
 	#send_message(sessionid,usernamefrom,usernameto,message)
-	pc = j.send_message(tokenid,'rofita','rofita','rooop')
+	# pc = j.send_message(tokenid,'rofita','rofita','rooop')
 	send = j.send_message(tokenid,'rofita','group','halo rek, semangat2! progjar ez :)')
+	send = j.send_message(tokenid,'patrick','group','semangat2! progjar ez :)')
 	print(send)
-	print(pc)
+	# print(pc)
 	#print j.send_message(tokenid,'zahra','messi','hello mes')
 	#print j.send_message(tokenid,'lineker','messi','hello si dari lineker')
 
