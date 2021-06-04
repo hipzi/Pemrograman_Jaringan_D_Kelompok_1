@@ -84,9 +84,8 @@ class ChatClient:
             for i in range(countpesan):
                 hasil = result['messages'][user][i]['msg']
                 pesan[user].append(hasil)
-                logging.warning("BISMILLAH: {}" . format(hasil))
 
-            return "{}" . format(json.dumps(result['messages']))
+            return "{}" . format(json.dumps(pesan[user]))
         else:            
             return "Error, {}" . format(result['message'])
 
