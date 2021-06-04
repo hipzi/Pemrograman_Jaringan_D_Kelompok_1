@@ -1,9 +1,10 @@
 import socket
 import os
 import json
+import logging
 
 TARGET_IP = "127.0.0.1"
-TARGET_PORT = 8887
+TARGET_PORT = 8889
 
 
 class ChatClient:
@@ -24,7 +25,7 @@ class ChatClient:
                 usernameto = j[1].strip()
                 message=""
                 for w in j[2:]:
-                   message="{} {}" . format(message,w)
+                    message="{} {}" . format(message,w)
                 return self.sendmessage(usernameto,message)
             elif (command=='inbox'):
                 return self.inbox()
@@ -66,13 +67,27 @@ class ChatClient:
         else:
             return "Error, {}" . format(result['message'])
     def inbox(self):
+        hasil={}
+        pesan={}
         if (self.tokenid==""):
             return "Error, not authorized"
         string="inbox {} \r\n" . format(self.tokenid)
         result = self.sendstring(string)
         if result['status']=='OK':
+
+            for name in result['messages'].keys():
+                user = name
+
+            countpesan = len([jmlpesan for jmlpesan in result['messages'][user] if isinstance(jmlpesan, dict)])
+
+            pesan[user]=[]
+            for i in range(countpesan):
+                hasil = result['messages'][user][i]['msg']
+                pesan[user].append(hasil)
+                logging.warning("BISMILLAH: {}" . format(hasil))
+
             return "{}" . format(json.dumps(result['messages']))
-        else:
+        else:            
             return "Error, {}" . format(result['message'])
 
 if __name__=="__main__":

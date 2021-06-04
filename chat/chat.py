@@ -10,7 +10,7 @@ class Chat:
 		self.sessions={}
 		self.users = {}
 		self.group = {'username':[]}
-		self.users['zahra']={ 'nama': 'Zahratul Millah', 'negara': 'Indonesia', 'password': 'malang', 'incoming' : {}, 'outgoing': {}}
+		self.users['zahra']={ 'nama': 'Zahratul Millah', 'negara': 'Indonesia', 'password': 'manis', 'incoming' : {}, 'outgoing': {}}
 		self.users['rofita']={ 'nama': 'Rofita Siti', 'negara': 'Indonesia', 'password': 'madiun', 'incoming' : {}, 'outgoing': {}}
 		self.users['patrick']={ 'nama': 'Patrick', 'negara': 'Indonesia', 'password': 'jombang', 'incoming' : {}, 'outgoing': {}}
 	def proses(self,data):
@@ -42,7 +42,6 @@ class Chat:
 			return { 'status': 'ERROR', 'message' : 'Informasi tidak ditemukan'}
 		except IndexError:
 			return {'status': 'ERROR', 'message': '--Protocol Tidak Benar'}
-	#def grup()
 
 	def autentikasi_user(self,username,password):
 		if (username not in self.users):
@@ -109,17 +108,12 @@ class Chat:
 		s_fr = self.get_user(username)
 		incoming = s_fr['incoming']
 		msgs={}
-		pengirim = "" 
-		bismillah={'halo':[]}
 		for users in incoming:
 			msgs[users]=[]
 			while not incoming[users].empty():
 				msgs[users].append(s_fr['incoming'][users].get_nowait())
 
-		for name in msgs.keys():
-			pengirim = name
-
-		return {'status': 'OK', 'messages': msgs[users][0]['msg'], 'pengirim': pengirim}
+		return {'status': 'OK', 'messages': msgs }
 
 if __name__=="__main__":
 	j = Chat()
@@ -139,20 +133,20 @@ if __name__=="__main__":
 	#print(j.proses("send {} zahra hello gimana kabarnya mes " . format(tokenid)))
 
 	#send_message(sessionid,usernamefrom,usernameto,message)
-	pc = j.send_message(tokenid,'zahra','rofita','rooop')
-	send = j.send_message(tokenid,'zahra','group','halo rek, semangat2! progjar ez :)')
+	pc = j.send_message(tokenid,'rofita','rofita','rooop')
+	send = j.send_message(tokenid,'rofita','group','halo rek, semangat2! progjar ez :)')
 	print(send)
 	print(pc)
 	#print j.send_message(tokenid,'zahra','messi','hello mes')
 	#print j.send_message(tokenid,'lineker','messi','hello si dari lineker')
 
 
-	print("isi mailbox dari zahra")
-	print(j.get_inbox('zahra'))
-	# print("isi mailbox dari rofita")
-	# print(j.get_inbox('rofita'))
-	# print("isi mailbox dari patrick")
-	# print(j.get_inbox('patrick'))
+	# print("isi mailbox dari zahra")
+	# print(j.get_inbox('zahra'))
+	print("isi mailbox dari rofita")
+	print(j.get_inbox('rofita'))
+	print("isi mailbox dari patrick")
+	print(j.get_inbox('patrick'))
 
 
 
