@@ -7,7 +7,7 @@ from chat import Chat
 from tkinter import filedialog
 
 TARGET_IP = "127.0.0.1"
-TARGET_PORT = 8888
+TARGET_PORT = 8889
 
 
 class ChatClient:
@@ -234,32 +234,55 @@ class ChatClient:
                                 bg="#ABB2B9",
                                 command=lambda: self.proses("inbox"))
 
-        self.buttonInbox.place(relx=0.1,
-                                rely=0.5,
+        self.buttonInbox.place(relx=0.08,
+                                rely=0.4,
                                 relheight=0.06,
                                 relwidth=0.22)
         
-        def browseFiles():
-            filename = filedialog.askopenfilename(initialdir = "/",
+        def browsefiles():
+            self.filename = filedialog.askopenfilename(initialdir = "/",
                                                  title = "Select a File",
-                                                filetypes = (("Text files",
-                                                        "*.txt*"),
-                                                       ("all files",
+                                                filetypes = (("JPG",
+                                                        "*.jpg*"),
+                                                       ("JPG",
                                                         "*.*")))
-
-           #self.labelBottom.configure(text=filename)
+            x=self.filename.split("/")
+            self.filenamesplit=x[-1].strip()
+            self.labelImage.configure(text=self.filenamesplit)
 
         self.buttonImage = Button(self.Window,
                                 text="Image",
                                 font="Helvetica 10 bold",
                                 width=20,
                                 bg="#ABB2B9",
-                                command=browseFiles)
+                                command=browsefiles)
 
-        self.buttonImage.place(relx=0.1,
-                                rely=0.6,
+        self.buttonImage.place(relx=0.08,
+                                rely=0.5,
                                 relheight=0.06,
                                 relwidth=0.22)
+
+        self.buttonSendImage = Button(self.Window,
+                                text="Send",
+                                font="Helvetica 10 bold",
+                                width=10,
+                                bg="#ABB2B9",
+                                command=lambda: Chat.send_file(self.tokenid,self.name,self.sendTo,self.filepathsplit))
+                                                #self.proses("send-image"+" "+self.sendTo+" "+self.filenameSplit))
+
+        self.buttonSendImage.place(relx=0.13,
+                                rely=0.6,
+                                relheight=0.06,
+                                relwidth=0.12)
+
+        self.labelImage = Label(self.userListbox,
+                                text="",
+                                bg="white",
+                                 height=5,
+                                 font="Helvetica 13 bold")
+
+        self.labelImage.place(relwidth=1,
+                               rely=0.8)
 
         self.labelBottom = Label(self.Window,
                                  bg="#ABB2B9",
