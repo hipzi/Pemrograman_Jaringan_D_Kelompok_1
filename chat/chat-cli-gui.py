@@ -267,7 +267,7 @@ class ChatClient:
                                 font="Helvetica 10 bold",
                                 width=10,
                                 bg="#ABB2B9",
-                                command=lambda: Chat.send_file(self.tokenid,self.name,self.sendTo,self.filepathsplit))
+                                command=lambda: Chat.send_file(self.tokenid,self.name,self.sendTo,self.filenamesplit))
                                                 #self.proses("send-image"+" "+self.sendTo+" "+self.filenameSplit))
 
         self.buttonSendImage.place(relx=0.13,
