@@ -155,7 +155,10 @@ class ChatClient:
                     continue
                 else:
                     self.textCons.config(state=NORMAL)
-                    self.textCons.insert(END, user+": "+format(json.dumps(pesan[user]))+ "\n")
+                    for key in pesan[user]:
+                        pesan_user = key
+                    pesan_user = pesan_user[2:-3]
+                    self.textCons.insert(END, user+": "+format(json.dumps(pesan_user))+ "\n")
                     self.textCons.config(state=DISABLED)
                     self.textCons.see(END)    
 
