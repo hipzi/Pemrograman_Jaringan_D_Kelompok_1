@@ -11,11 +11,10 @@ class Chat:
 		self.sessions={}
 		self.users = {}
 		self.group = {'username':[]}
-		self.users['zahra']={ 'nama': 'Zahratul Millah', 'negara': 'Indonesia', 'password': 'manis', 'incoming' : {}, 'outgoing': {}}
+		self.users['zahra']={ 'nama': 'Zahratul Millah', 'negara': 'Indonesia', 'password': 'malang', 'incoming' : {}, 'outgoing': {}}
 		self.users['rofita']={ 'nama': 'Rofita Siti', 'negara': 'Indonesia', 'password': 'madiun', 'incoming' : {}, 'outgoing': {}}
 		self.users['patrick']={ 'nama': 'Patrick', 'negara': 'Indonesia', 'password': 'jombang', 'incoming' : {}, 'outgoing': {}}
 	def proses(self,data):
-		logging.warning("DATA:BISMILLAH: {}" . format(data))
 		j=data.split(" ")
 		try:
 			command=j[0].strip()
@@ -34,7 +33,6 @@ class Chat:
 				logging.warning("SEND: session {} send message from {} to {}" . format(sessionid, usernamefrom,usernameto))
 				return self.send_message(sessionid,usernamefrom,usernameto,message)
 			elif (command=='inbox'):
-				logging.warning("INBOX: BISMILLAH")
 				sessionid = j[1].strip()
 				username = self.sessions[sessionid]['username']
 				logging.warning("INBOX: {}" . format(sessionid))
@@ -166,17 +164,21 @@ class Chat:
 		msgs={}
 		for users in incoming:
 			msgs[users]=[]
+			n=0
 			while not incoming[users].empty():
 				msgs[users].append(s_fr['incoming'][users].get_nowait())
 
-			# if (msgs[users][0]['flag']==1):
-			# 	print("Receiving File")
-			# 	print(msgs[users][0]['msg'])
-			# 	recv_image = 'pict_' + datetime.now().strftime("%H%M%S") + '.jpg'
-			# 	data = msgs[users][0]['msg']
-			# 	with open(recv_image, 'wb') as file:
-			# 		file.write(data)
-			# 	print("File Received")
+			if (msgs[users][n]['flag']==1):
+				print("Receiving File")
+				print(msgs[users][n]['msg'])
+				recv_image = 'pict_' + datetime.now().strftime("%H%M%S") + '.jpg'
+				data = msgs[users][n]['msg']
+				with open(recv_image, 'wb') as file:
+					file.write(data)
+				print("File Received")
+
+		for name in msgs.keys():
+			pengirim = name
 
 		return {'status': 'OK', 'messages': msgs}
 
@@ -198,41 +200,23 @@ if __name__=="__main__":
 	#print(j.proses("send {} zahra hello gimana kabarnya mes " . format(tokenid)))
 
 	#send_message(sessionid,usernamefrom,usernameto,message)
-	# pc = j.send_message(tokenid,'rofita','rofita','rooop')
+	pc = j.send_message(tokenid,'rofita','rofita','rooop')
 	send = j.send_message(tokenid,'rofita','group','halo rek, semangat2! progjar ez :)')
-
-	print("isi mailbox dari zahra 1")
-	print(j.get_inbox('zahra'))
-	print("isi mailbox dari rofita 1")
-	print(j.get_inbox('rofita'))
-	print("isi mailbox dari patrick 1")
-	print(j.get_inbox('patrick'))
-
-	send = j.send_message(tokenid,'patrick','group','semangat2! progjar ez :)')
-
-	print("isi mailbox dari zahra 2")
-	print(j.get_inbox('zahra'))
-	print("isi mailbox dari rofita 2")
-	print(j.get_inbox('rofita'))
-	print("isi mailbox dari patrick 2")
-	print(j.get_inbox('patrick'))
-
-	send = j.send_message(tokenid,'zahra','group','bismillah kelar :)')
-	# print(send)
-	# print(pc)
+	print(send)
+	print(pc)
 	#print j.send_message(tokenid,'zahra','messi','hello mes')
 	#print j.send_message(tokenid,'lineker','messi','hello si dari lineker')
 
-	# print(j.send_file(tokenid,'rofita','zahra','hello.jpg'))
+	print(j.send_file(tokenid,'rofita','zahra','hello.jpg'))
+	print(j.send_file(tokenid,'rofita','patrick','hello.jpg'))
+	print(j.send_file(tokenid,'rofita','zahra','hi.jpg'))
 
-	print("isi mailbox dari zahra 3")
+	print("isi mailbox dari zahra")
 	print(j.get_inbox('zahra'))
-	print("isi mailbox dari rofita 3")
-	print(j.get_inbox('rofita'))
-	print("isi mailbox dari patrick 3")
+	# print("isi mailbox dari rofita")
+	# print(j.get_inbox('rofita'))
+	print("isi mailbox dari patrick")
 	print(j.get_inbox('patrick'))
-	# print("isi mailbox dari zahra")
-	# print(j.get_inbox('zahra'))
 
 
 
