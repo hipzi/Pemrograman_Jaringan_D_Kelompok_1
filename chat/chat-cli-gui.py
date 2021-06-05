@@ -7,7 +7,7 @@ from chat import Chat
 from tkinter import filedialog
 
 TARGET_IP = "127.0.0.1"
-TARGET_PORT = 8889
+TARGET_PORT = 8888
 
 
 class ChatClient:
@@ -144,19 +144,22 @@ class ChatClient:
             for name in result['messages'].keys():
                 user = name
 
-            countpesan = len([jmlpesan for jmlpesan in result['messages'][user] if isinstance(jmlpesan, dict)])
+                countpesan = len([jmlpesan for jmlpesan in result['messages'][user] if isinstance(jmlpesan, dict)])
 
-            pesan[user]=[]
-            for i in range(countpesan):
-                hasil = result['messages'][user][i]['msg']
-                pesan[user].append(hasil)
-            
-            self.textCons.config(state=NORMAL)
-            self.textCons.insert(END, user+": "+format(json.dumps(pesan[user]))+ "\n")
-            self.textCons.config(state=DISABLED)
-            self.textCons.see(END)    
+                pesan[user]=[]
+                for i in range(countpesan):
+                    hasil = result['messages'][user][i]['msg']
+                    pesan[user].append(hasil)
+                
+                if not pesan[user]:
+                    continue
+                else:
+                    self.textCons.config(state=NORMAL)
+                    self.textCons.insert(END, user+": "+format(json.dumps(pesan[user]))+ "\n")
+                    self.textCons.config(state=DISABLED)
+                    self.textCons.see(END)    
 
-            return "{}" . format(json.dumps(pesan[user]))
+            return "{}" . format(json.dumps(result['messages']))
         else:            
             return "Error, {}" . format(result['message'])
     def layout(self, name):

@@ -4,7 +4,7 @@ import json
 import logging
 
 TARGET_IP = "127.0.0.1"
-TARGET_PORT = 8887
+TARGET_PORT = 8888
 
 
 class ChatClient:
@@ -69,6 +69,7 @@ class ChatClient:
     def inbox(self):
         hasil={}
         pesan={}
+        pesan_akhir={}
         countpesan=0
         if (self.tokenid==""):
             return "Error, not authorized"
@@ -76,21 +77,18 @@ class ChatClient:
         result = self.sendstring(string)
         if result['status']=='OK':
 
+            logging.warning("TEST: {}" . format(result['messages'].keys()) )
             for name in result['messages'].keys():
                 user = name
 
-            countpesan = len([jmlpesan for jmlpesan in result['messages'][user] if isinstance(jmlpesan, dict)])
-            # logging.warning("BISMILLAH: {}" . format(countpesan) )
+                countpesan = len([jmlpesan for jmlpesan in result['messages'][user] if isinstance(jmlpesan, dict)])
 
-            pesan[user]=[]
-            for i in range(countpesan):
-                hasil = result['messages'][user][i]['msg']
-                pesan[user].append(hasil)
+                pesan[user]=[]
+                for i in range(countpesan):
+                    hasil = result['messages'][user][i]['msg']
+                    pesan[user].append(hasil)
 
-            # logging.warning("BISMILLAH: {}" . format(pesan) )
-            # logging.warning("BISMILLAH 2: {}" . format(pesan[user]) )
-            # logging.warning("BISMILLAH 2: {}" . format(result['messages']) )
-            return "{}" . format(json.dumps(pesan[user]))
+            return "{}" . format(json.dumps(result['messages']))
         else:            
             return "Error, {}" . format(result['message'])
 
