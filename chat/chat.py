@@ -168,14 +168,16 @@ class Chat:
 			while not incoming[users].empty():
 				msgs[users].append(s_fr['incoming'][users].get_nowait())
 
-			if (msgs[users][n]['flag']==1):
-				print("Receiving File")
-				print(msgs[users][n]['msg'])
-				recv_image = 'pict_' + datetime.now().strftime("%H%M%S") + '.jpg'
-				data = msgs[users][n]['msg']
-				with open(recv_image, 'wb') as file:
-					file.write(data)
-				print("File Received")
+				if (msgs[users][n]['flag'] == 1):
+					print("Receiving File")
+					print(msgs[users][n]['msg'])
+					recv_image = 'pict_' + datetime.now().strftime("%H%M%S") + '.jpg'
+					data = msgs[users][n]['msg']
+					with open(recv_image, 'wb') as file:
+						file.write(data)
+					print("File Received")
+
+				n = n + 1
 
 		for name in msgs.keys():
 			pengirim = name
