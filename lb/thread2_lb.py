@@ -93,7 +93,7 @@ class Server(threading.Thread):
 				clt.start()
 				self.the_clients.append(clt)
 				logging.warning("socket {}" . format(sock.fileno()))
-				time.sleep(0.1)	
+				time.sleep(0.01)	
 				sock.close()	
 				# sock.shutdown(socket.SHUT_RDWR)
 				logging.warning("close {}" . format(sock.fileno()))
