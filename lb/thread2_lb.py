@@ -9,7 +9,7 @@ import logging
 class BackendList:
 	def __init__(self):
 		self.servers=[]
-		self.servers.append(('127.0.0.1',9002))
+		self.servers.append(('192.168.122.60',9002))
 		# self.servers.append(('127.0.0.1',9003))
 		# self.servers.append(('127.0.0.1',9004))
 		# self.servers.append(('127.0.0.1',9005))
@@ -93,7 +93,7 @@ class Server(threading.Thread):
 				clt.start()
 				self.the_clients.append(clt)
 				logging.warning("socket {}" . format(sock.fileno()))
-				# time.sleep(0.1)	
+				time.sleep(0.1)	
 				sock.close()	
 				# sock.shutdown(socket.SHUT_RDWR)
 				logging.warning("close {}" . format(sock.fileno()))
