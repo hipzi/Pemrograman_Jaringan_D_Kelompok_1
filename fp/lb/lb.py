@@ -8,10 +8,11 @@ import logging
 class BackendList:
 	def __init__(self):
 		self.servers=[]
-		self.servers.append(('127.0.0.1',9002))
-		# self.servers.append(('127.0.0.1',9003))
-		# self.servers.append(('127.0.0.1',9004))
-		# self.servers.append(('127.0.0.1',9005))
+		self.servers.append(('192.168.122.134',9002))
+		self.servers.append(('192.168.122.134',9003))
+		self.servers.append(('192.168.122.134',9004))
+		self.servers.append(('192.168.122.134',9005))
+		self.servers.append(('192.168.122.134',9005))
 		self.current=0
 	def getserver(self):
 		s = self.servers[self.current]
@@ -78,7 +79,7 @@ class Server(asyncore.dispatcher):
 			logging.warning("ini apa 2 {}" . format(sock))
 
 def main():
-	portnumber=44444
+	portnumber=18000
 	try:
 		portnumber=int(sys.argv[1])
 	except:

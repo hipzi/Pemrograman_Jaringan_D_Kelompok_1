@@ -9,10 +9,11 @@ import logging
 class BackendList:
 	def __init__(self):
 		self.servers=[]
-		self.servers.append(('192.168.122.60',9002))
-		# self.servers.append(('127.0.0.1',9003))
-		# self.servers.append(('127.0.0.1',9004))
-		# self.servers.append(('127.0.0.1',9005))
+		self.servers.append(('192.168.122.134',9002))
+		self.servers.append(('192.168.122.134',9003))
+		self.servers.append(('192.168.122.134',9004))
+		self.servers.append(('192.168.122.134',9005))
+		self.servers.append(('192.168.122.134',9005))
 		self.current=0
 	def getserver(self):
 		s = self.servers[self.current]
@@ -34,10 +35,10 @@ class Backend(threading.Thread):
 			self.my_socket.sendall(self.recv(8192))
 		except:
 			pass
-		logging.warning("socket open {}" . format(cli.fileno()))
+		# logging.warning("socket open {}" . format(cli.fileno()))
 		self.close()
 		self.my_socket.close()
-		logging.warning("socket close {}" . format(cli.fileno()))
+		# logging.warning("socket close {}" . format(cli.fileno()))
 
 class ProcessTheClient(threading.Thread):
 	logging.warning("zahra")
@@ -55,10 +56,10 @@ class ProcessTheClient(threading.Thread):
 			# self.backend.connection.sendall(data)
 		else:
 			logging.warning("e e eee")
-		logging.warning("open socket? {}" . format(self.connection.fileno()))
+		# logging.warning("open socket? {}" . format(self.connection.fileno()))
 		# self.connection.shutdown(socket.SHUT_RDWR)
 		self.connection.close()
-		logging.warning("keluar ga? {}" . format(self.connection.fileno()))
+		# logging.warning("keluar ga? {}" . format(self.connection.fileno()))
 
 class Server(threading.Thread):
 	def __init__(self,portnumber):
