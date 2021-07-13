@@ -67,8 +67,24 @@ class HttpServer:
 		for i in range(0, len(files)):
 			files[i] = Path(files[i])
 		dir=Path('./')
-		return self.response(200,'OK','Server Default',dict())
+		if (object_address == '/'):
+			return self.response(200,'OK','Server for Images',dict())
+
+		object_address=object_address[1:]
+		print(dir / object_address)
+		if dir / object_address not in files:
+			return self.response(404,'Not Found','',{})
+		fp = open(dir/object_address,'rb') #rb => artinya adalah read dalam bentuk binary
+		#harus membaca dalam bentuk byte dan BINARY
+		isi = fp.read()
 		
+		fext = os.path.splitext(dir/object_address)[1]
+		content_type = self.types[fext]
+		
+		headers={}
+		headers['Content-type']=content_type
+		
+		return self.response(200,'OK',isi,headers)
 	def http_post(self,object_address,headers):
 		headers ={}
 		isi = "kosong"
@@ -82,12 +98,6 @@ if __name__=="__main__":
 	httpserver = HttpServer()
 	d = httpserver.proses('GET / HTTP/1.0')
 	print(d)
-	# d = httpserver.proses('GET donalbebek.jpg HTTP/1.0')
-	# print(d)
-	#d = httpserver.http_get('testing2.txt',{})
-	#print(d)
-#	d = httpserver.http_get('testing.txt')
-#	print(d)
 
 
 
