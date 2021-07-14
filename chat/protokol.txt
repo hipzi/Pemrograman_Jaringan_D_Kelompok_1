@@ -1,0 +1,55 @@
+CHAT SERVER
+TUJUAN: melayani client dalam melakukan chat
+
+ATURAN PROTOKOL:
+- client harus mengirimkan request dalam bentuk string
+- string harus dalam format
+  REQUEST spasi PARAMETER
+- PARAMETER dapat berkembang menjadi PARAMETER1 spasi PARAMETER2 dan seterusnya
+
+REQUEST YANG DILAYANI:
+- informasi umum:
+  * Jika request tidak dikenali akan menghasilkan pesan
+    - status: ERROR
+    - data: Informasi tidak ditemukan
+  * Semua result akan diberikan dalam bentuk JSON dan diakhiri
+    dengan character  "\r\n"
+
+AUTH
+* TUJUAN: untuk melakukan autentifikasi user
+* PARAMETER: username dan password
+* RESULT:
+- BERHASIL:
+  - status: OK
+  - data: username dan token user tersebut 
+- GAGAL:
+  - status: ERROR
+  - data: pesan kesalahan 
+- user tidak ada
+- password salah 
+
+SEND
+* TUJUAN: untuk mengirim pesan berupa text atau file kepada client
+* PARAMETER: 
+username dan pesan
+group dan pesan
+* RESULT:
+- BERHASIL:
+  - status: OK
+  - data: Message Sent
+- GAGAL:
+  - status: ERROR
+  - data: pesan kesalahan
+	- Session Tidak Ditemukan
+	- User Tidak Ditemukan
+
+INBOX
+* TUJUAN: untuk mengecek pesan pada user tersebut
+* PARAMETER: tidak ada
+* RESULT:
+- BERHASIL:
+  - status: OK
+  - data: pengirim pesan dan daftar pesan
+- GAGAL:
+  - status: ERROR
+  - data: pesan kesalahan
